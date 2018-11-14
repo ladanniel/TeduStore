@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace表示命名空间,值唯一 -->
+<mapper namespace="cn.tedu.store.mapper.UserMapper">
+	<!-- 向数据库插入数据 -->
+	<insert id="insertUser" parameterType="cn.tedu.store.bean.User">
+		insert into t_user(
+		username,password,email,phone,gender,image,created_user,created_time,
+		modified_user,modified_time
+		)values(
+		#{username},#{password},#{email},#{phone},#{gender},#{image},#{createdUser},#{createdTime},
+		#{modifiedUser},#{modifiedTime}
+		)
+	</insert>
+	<!-- 通过用户名来查询 -->
+	<select id="selectByUsername" resultType="cn.tedu.store.bean.User">
+		select
+		id,username,password,email,phone,image,gender,created_user
+		createdUser,created_time createdTime,
+		modified_user
+		modifiedUser,modified_time modifiedTime
+		from t_user
+		where
+		username=#{username}
+	</select>
+	<!-- 通过邮箱来查询 -->
+	<select id="selectByEmail" resultType="java.lang.Integer">
+		select count(*)
+		from
+		t_user
+		where
+		email=#{email}
+	</select>
+	<select id="selectByPhone" resultType="java.lang.Integer">
+		select count(*)
+		from
+		t_user
+		where
+		phone=#{phone}
+	</select>
+	<update id="updateUser" parameterType="cn.tedu.store.bean.User">
+		update
+		t_user
+		<set>
+			<if test="password!=null">
+				password=#{password},
+			</if>
+			<if test="username!=null">
+				username=#{username},
+			</if>
+			<if test="gender!=null">
+				gender=#{gender},
+			</if>
+			<if test="phone!=null">
+				phone=#{phone},
+			</if>
+			<if test="email!=null">
+				email=#{email},
+			</if>
+			<if test="modifiedUser!=null">
+				modified_user=#{modifiedUser},
+			</if>
+			<if test="modifiedTime!=null">
+				modified_Time=#{modifiedTime}
+			</if>
+		</set>
+		where
+			id=#{id}
+	</update>
+	<!-- 通过id来查询 -->
+	<select id="selectById" resultType="cn.tedu.store.bean.User">
+		select
+		id,username,password,email,phone,image,gender,created_user
+		createdUser,created_time createdTime,
+		modified_user
+		modifiedUser,modified_time modifiedTime
+		from t_user
+		where
+		id=#{id}
+	</select>
+	<update id="updateImage">
+		{call image(#{image},#{id})}
+	</update>
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace表示命名空间,值唯一 -->
+<mapper namespace="cn.tedu.store.mapper.DictMapper">
+	<select id="selectProvince" resultType="cn.tedu.store.bean.Province">
+		select id,province_code provinceCode,province_name provinceName from t_dict_provinces
+	</select>
+	<select id="selectCity" resultType="cn.tedu.store.bean.City">
+		select 
+		id,city_code cityCode,city_name cityName,province_code provinceCode
+		from t_dict_cities
+		where
+		province_code=#{provinceCode}
+	</select>
+	<select id="selectArea" resultType="cn.tedu.store.bean.Area">
+		select 
+		id,area_code areaCode,area_name areaName,city_code cityCode
+		from t_dict_areas
+		where
+		city_code=#{cityCode}
+	</select>
+	<select id="selectByProvinceCode" resultType="java.lang.String">
+		select province_name from t_dict_provinces where province_code=#{provinceCode}
+	</select>
+	<select id="selectByCityCode" resultType="java.lang.String">
+		select city_name from t_dict_cities where city_code=#{cityCode}
+	</select>
+	<select id="selectByAreaCode" resultType="java.lang.String">
+		select area_name from t_dict_areas where area_code=#{areaCode}
+	</select>
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
